@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  mongoExamTest:
+    container_name: mongoExamTest
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  mongo-express:
+    container_name: mongo-examtest-express
+    image: mongo-express
+    restart: always
+    ports:
+      - '8081:8081'
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongoExamTest
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password@localhost:27017/
+    depends_on:
+      - mongoExamTest
+  rabbitmqEvent:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_evet_queue
+    hostname: rabbit
+    ports:
+      # The standard AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+volumes:
+  rabbitmq:

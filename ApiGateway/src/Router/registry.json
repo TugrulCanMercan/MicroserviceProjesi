@@ -1,0 +1,17 @@
+{
+  "services": {
+    "userService": {
+      "apiName": "userService",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 5000,
+      "url": "http://localhost:5000/",
+      "route": [
+        "/testApi",
+        "/testApi1",
+        "/register"
+
+      ]
+    }
+  }
+}
