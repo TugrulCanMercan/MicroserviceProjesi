@@ -8,7 +8,9 @@ const UserSchema = new Schema<IUserModel>({
     surname:String,
     password:String,
     email:String,
-    userQuestionLibrary:[String]
+    userQuestionLibrary:[String],
+    userExamLibrary:[String]
+
 })
 
 

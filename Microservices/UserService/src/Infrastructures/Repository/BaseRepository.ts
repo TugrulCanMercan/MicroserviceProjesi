@@ -40,7 +40,8 @@ export default abstract class Repository<T extends mongoose.Document> implements
         })
     }
 
-    find(query:any,item: T): Promise<T[]> {
+    find(query:any): Promise<T[]> {
+
         return new Promise((resolve,reject)=>{
             this._model.find(query,(err,result)=>{
                 if(err){
@@ -54,14 +55,15 @@ export default abstract class Repository<T extends mongoose.Document> implements
         })
     }
 
-    findOne(id: string): Promise<any> {
+    findOne(id: string): Promise<T> {
         return new Promise((resolve,reject)=>{
-            this._model.findById({id:id},{},{},(err,result)=>{
+            this._model.findById({_id:id},{},{},(err,result)=>{
                 if(err){
                     console.log(err)
                     reject(err)
                 }else{
-                    resolve(result)
+
+                    resolve(result as T)
                 }
             })
         })

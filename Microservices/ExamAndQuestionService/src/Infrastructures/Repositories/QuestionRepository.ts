@@ -4,6 +4,9 @@ import Repository from "./Repository";
 
 export default class QuestionRepository extends Repository<QuestionModelI>{
 
+    getAllQuestion(){
+        // this._model.find().where('_id').in
+    }
 }
 
 

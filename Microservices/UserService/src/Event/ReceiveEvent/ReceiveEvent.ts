@@ -1,3 +1,56 @@
+import amqp, {Channel, Connection} from "amqplib/callback_api";
+
+class EvenController{
+    constructor(
+        public connection:Connection,
+        public channel:Channel
+    ) {
+        this.Allconsumer()
+    }
+    Allconsumer(){
+
+        this.connection.createChannel((err, channel)=>{
+
+        })
+        this.connection.createChannel((err, channel)=>{
+
+        })
+    }
+    receiveQuestionEvent(){
+        this.connection.createChannel((err, channel)=>{
+            if(err){
+
+            }
+            const QUEUE = "QuestionEvent"
+            channel.assertQueue(QUEUE)
+            channel.consume(QUEUE,(msg)=>{
+
+            })
+        })
+    }
+    publisher(){
+
+    }
+}
+
+    amqp.connect('amqp://localhost',(err,connection)=>{
+
+        if(err){
+            throw err
+        }
+        connection.createChannel((err, channel)=>{
+            if (err){
+
+            }
+            channel.assertQueue("")
+
+        })
+
+    })
+
+function consumer(channel:Channel){
+        channel.assertQueue()
+}
 
 
 

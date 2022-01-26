@@ -1,6 +1,17 @@
-import amqplib from "amqplib";
+import amqplib from "amqplib/callback_api";
 
-const client =  amqplib.connect('amqp://localhost')
+export default async ()=>{
+    return new Promise<amqplib.Connection>((resolve,reject)=>{
+        amqplib.connect('amqp://rabbit',(err,connection)=>{
+            if(err){
+                reject(err)
+            }else {
+                resolve(connection)
+            }
+        })
+    })
+}
 
 
-export default client
+
+// export default client

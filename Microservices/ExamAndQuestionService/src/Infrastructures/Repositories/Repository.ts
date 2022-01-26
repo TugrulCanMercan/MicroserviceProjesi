@@ -5,19 +5,19 @@ import {IRepository} from "../../Core/Interfaces/IRepository";
 export default abstract class Repository<T extends mongoose.Document> implements IRepository<T>{
 
     constructor(
-        private _model: mongoose.Model<T>,
+        public _model: mongoose.Model<T>,
 
     ) {
     }
 
 
-    async create(item: T):Promise<string>{
+    async create(item: T):Promise<T>{
         return new Promise((resolve, reject)=>{
             this._model.create(item,(err,res)=>{
                 if(err){
                     reject(err)
                 }else{
-                    resolve("Kayıt Başarılı")
+                    resolve(res)
                 }
             })
         })
@@ -42,28 +42,28 @@ export default abstract class Repository<T extends mongoose.Document> implements
         })
     }
 
-    find(query:any,item: T): Promise<T[]> {
+    find(query:any): Promise<T[]> {
         return new Promise((resolve,reject)=>{
             this._model.find(query,(err,result)=>{
                 if(err){
                     console.log(err)
                     reject(err)
                 }else{
-                    // @ts-ignore
-                    resolve(result)
+
+                    resolve(result as T[])
                 }
             })
         })
     }
 
-    findOne(id: string): Promise<any> {
+    findOne(id: string): Promise<T> {
         return new Promise((resolve,reject)=>{
             this._model.findById({_id:id},{},{},(err,result)=>{
                 if(err){
                     console.log(err)
                     reject(err)
                 }else{
-                    resolve(result)
+                    resolve(result as T)
                 }
             })
         })

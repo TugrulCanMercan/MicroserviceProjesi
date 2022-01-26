@@ -28,19 +28,16 @@ export default async (req: Request, questionRepo: QuestionRepo) => {
 
         })
         const dbResponse = await questionRepo.create(addQuestion)
-        const responseDto: ResponseI<null | undefined> = {
-            data: null,
-            message: dbResponse,
-            status: "200"
-        }
-        return responseDto
+
+        return dbResponse
     }catch (err){
-        const responseDto: ResponseI<null | undefined> = {
-            data: null,
-            message: `${err}`,
-            status: "400"
-        }
-        return responseDto
+        return `hata:  ${err}`
+        // const responseDto: ResponseI<null | undefined> = {
+        //     data: null,
+        //     message: `${err}`,
+        //     status: "400"
+        // }
+        // return responseDto
     }
 
 

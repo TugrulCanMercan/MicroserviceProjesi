@@ -4,6 +4,8 @@ import amqpClient from "../Infrastructures/Db-access/rabbitmqConnect";
 import questionRepository from "../Infrastructures/Repositories/QuestionRepository";
 import {Request} from "express";
 import getQuestionUsecase from "../Core/Usecases/getQuestionUsecase";
+import {QuestionModelI} from "../Core/Model/RequestModel/QuestionModel";
+import {ResponseI} from "../Core/Model/ResponseModel/Response";
 
 
 export default class QuestionsController {
@@ -14,28 +16,50 @@ export default class QuestionsController {
     }
 
     async createQuestions(req: Request) {
-        const response = await createQuestionsUsecases(req, this.questionRepo)
-        return response
+        const question = await createQuestionsUsecases(req, this.questionRepo)
+        if (typeof question === "string") {
+            const response: ResponseI<string> = {
+                data: undefined
+                , message: "Kayıt başarısız",
+                status: "400"
+            }
+            return response
+        } else {
+            const response: ResponseI<QuestionModelI> = {
+                data: question
+                , message: "Kayıt başarılı",
+                status: "200"
+            }
+            return response
+        }
     }
 
-    async questionAddLibrary(req:Request){
-        const question = await getQuestionUsecase(req,this.questionRepo)
-        return new Promise((resolve,reject)=>{
-            if (question.data != null){
-                amqpClient.then(function(conn) {
-                    return conn.createChannel();
-                }).then(function(ch) {
-                    const QUEUE = "UserQuestionEvent"
-                    return ch.assertQueue(QUEUE).then(function(ok) {
-                        const sendData = {
-                            //burası değişecek
-                            UUID:req.body.UUID,
-                            QuestionId:question.data?._id
+    async getAllQuestions(req: Request) {
+        const allQuestionId = req.body.userQuestionLibrary
+        const allQuestion: QuestionModelI[] = await this.questionRepo.find({_id: {$in: allQuestionId}})
+        return allQuestion
+    }
+
+    async questionAddLibrary(req: Request) {
+        const question = await getQuestionUsecase(req.body.QuestionId, this.questionRepo)
+
+        return new Promise<string>((resolve, reject) => {
+            if (question != null) {
+
+                amqpClient().then((connection)=>{
+                    connection.createChannel((err,channel)=>{
+                        if(err){
+                            reject(`Hata:${err}`)
                         }
-                        ch.sendToQueue(QUEUE, Buffer.from(JSON.stringify(sendData)));
-                        resolve("Göderiliyor")
-                    });
-                }).catch(console.warn);
+                        const QUEUE = "UserQuestionEvent"
+                        channel.assertQueue(QUEUE)
+                        channel.sendToQueue(QUEUE,Buffer.from(JSON.stringify({UUID:req.body.UUID.sub,QuestionId:req.body.QuestionId})))
+                       resolve("başarılı")
+                    })
+                    setInterval(()=>{
+                        connection.close()
+                    },500)
+                })
             }
         })
 

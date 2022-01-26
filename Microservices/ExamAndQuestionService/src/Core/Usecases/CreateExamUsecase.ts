@@ -15,18 +15,20 @@ export default async (req: Request, examRepo: ExamRepository) => {
             examTotalPoint: req.body.examTotalPoint
         })
         const dbResponse = await examRepo.create(createExam)
-        const responseDto: ResponseI<null | undefined> = {
-            data: null,
-            message: dbResponse,
-            status: "200"
-        }
-        return responseDto
+        return dbResponse
+        // const responseDto: ResponseI<null | undefined> = {
+        //     data: null,
+        //     message: dbResponse,
+        //     status: "200"
+        // }
+        // return responseDto
     }catch (err){
-        const responseDto: ResponseI<null | undefined> = {
-            data: null,
-            message: `${err}`,
-            status: "400"
-        }
-        return responseDto
+        return `hata : ${err}`
+        // const responseDto: ResponseI<null | undefined> = {
+        //     data: null,
+        //     message: `${err}`,
+        //     status: "400"
+        // }
+        // return responseDto
     }
 };

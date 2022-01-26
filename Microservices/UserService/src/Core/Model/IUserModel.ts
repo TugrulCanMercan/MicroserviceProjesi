@@ -6,4 +6,5 @@ export interface IUserModel extends mongoose.Document{
     password:string
     email:string
     userQuestionLibrary:string[]
+    userExamLibrary:string[]
 }

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface IWrite<T extends mongoose.Document>  {
-    create(item: T):Promise<string>
+    create(item: T):Promise<T>
     update(id: string, item: T): Promise<void>;
     delete(id: string): Promise<boolean>;
 }

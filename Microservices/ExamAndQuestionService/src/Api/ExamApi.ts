@@ -5,7 +5,7 @@ import ExamModel from "../Infrastructures/Mongo-Model/examModel";
 
 
 const examRepository = new ExamRepository(ExamModel)
-ExamApi.post("/creatExam",async (req,res)=>{
+ExamApi.post("/createExam",async (req,res)=>{
     const examController = new ExamController(examRepository)
     await examController.createExam(req).then((result)=>{
         res.send(result)

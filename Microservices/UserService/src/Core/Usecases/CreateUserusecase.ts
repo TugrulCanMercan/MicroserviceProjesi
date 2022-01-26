@@ -18,9 +18,8 @@ export default async (req:Request,questionRepo:UserRepository) => {
         email:req.body.email,
         userExamInvite:req.body.userExamInvite
     })
-    // return await questionRepo.save(createNewUser)
+
     return await questionRepo.addUser(createNewUser)
-    // await questionRepo.create(addQuestion)
 
 
 }

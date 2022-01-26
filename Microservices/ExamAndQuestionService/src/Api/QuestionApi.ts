@@ -5,10 +5,11 @@ import {QuestionModel} from "../Infrastructures/Mongo-Model/questionModel";
 
 const questionRepo = new questionRepository(QuestionModel)
 const questionControllers = new questionController(questionRepo)
-Questions.get("/getQuestions/Category/:name/QuestionId/:id", (req, res) => {
-    const params = req.params
 
-    res.send(`gelen soru id : ${params.id} gelen kategory ${params.name} `)
+Questions.get("/getAllQuestions", (req, res) => {
+    questionControllers.getAllQuestions(req).then((result)=>{
+        res.send(result)
+    })
 })
 
 Questions.post('/addQuestions', async (req, res) => {

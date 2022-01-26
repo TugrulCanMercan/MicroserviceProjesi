@@ -37,5 +37,22 @@ services:
       - '15672:15672'
     volumes:
       - rabbitmq:/var/lib/rabbitmq
+  redis_auth:
+    image: redis
+    container_name: redis_db
+    hostname: 'redis'
+    environment:
+      - REDIS_PASSWORD=tugrul
+    command: redis-server --appendonly yes --requirepass tugrul
+    #    environment:
+    #      - REDIS_PASSWORD=tugrul
+    #      - REDIS_USERNAME=admin
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    restart: always
+
 volumes:
   rabbitmq:
+  redis_data:

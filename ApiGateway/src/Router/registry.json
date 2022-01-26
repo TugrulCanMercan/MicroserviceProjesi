@@ -5,13 +5,24 @@
       "protocol": "http",
       "host": "localhost",
       "port": 5000,
-      "url": "http://localhost:5000/",
       "route": [
-        "/testApi",
-        "/testApi1",
-        "/register"
-
-      ]
+        "/register",
+        "/userControl"
+      ],
+      "url": "http://localhost:5000/"
+    },
+    "ExamAndQuestion": {
+      "apiName": "ExamAndQuestion",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 5002,
+      "route": [
+        "/createExam",
+        "/getAllQuestions",
+        "/addQuestions",
+        "/questionAddLibrary"
+      ],
+      "url": "http://localhost:5002/"
     }
   }
 }
