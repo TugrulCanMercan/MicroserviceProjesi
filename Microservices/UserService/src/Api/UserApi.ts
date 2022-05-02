@@ -57,7 +57,7 @@ amqp.connect('amqp://rabbit', (error, connection) => {
         UserApi.post('/register', (request, response) => {
 
             userController.createNewUser(request).then((result) => {
-                response.send(result)
+                response.send({message:result})
             })
         })
         UserApi.post('/userControl',(req,res)=>{

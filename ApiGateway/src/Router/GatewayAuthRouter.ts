@@ -8,12 +8,14 @@ import {verifyRefreshToken} from "../Middleware/authMiddleware";
 const GatewayAuthRouter = Router()
 
 GatewayAuthRouter.post('/signUp',(req,res)=>{
-    axios.post('http://userservice:5000/register',req.body).then((response)=>{
+    axios.post('http://userservice:5003/register',req.body).then((response)=>{
         res.send(response.data)
     })
 })
 GatewayAuthRouter.post('/login',(req,res)=>{
-    axios.post('http://userservice:5000/userControl',req.body).then((response)=>{
+
+    console.log(req.body)
+    axios.post('http://userservice:5003/userControl',req.body).then((response)=>{
         try {
             const user = response.data
             if(user === null) res.status(401).json({status: false, message: "username or password is not valid."});

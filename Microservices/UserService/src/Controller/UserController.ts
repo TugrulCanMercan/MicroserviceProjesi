@@ -33,7 +33,7 @@ export default class UserController {
         }
     }
     async userLoginCheck(req:Request){
-        const user = await this.userRepo.find({email:req.body.email})
+        const user = await this.userRepo.find({email:req.body.email,password:req.body.password})
         if(user.length == 0){
             return null
         }else {
