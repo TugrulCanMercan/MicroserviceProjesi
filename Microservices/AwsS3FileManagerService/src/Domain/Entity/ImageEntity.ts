@@ -1,14 +1,8 @@
 
 
-//
+
 export default interface ImageEntity{
     imageId:string
-    Image:Express.Multer.File
+    OwnerId:string
+
 }
-// export default class ImageEntity{
-//     constructor(
-//         ImageId:string,
-//         Image:Express.Multer.File
-//     ) {
-//     }
-// }

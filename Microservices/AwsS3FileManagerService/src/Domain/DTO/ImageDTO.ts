@@ -1,8 +1,9 @@
 import S3 from "aws-sdk/clients/s3";
+import internal from "stream";
 
 
 export default interface ImageDTO{
 
-    image?: S3.GetObjectOutput
+    image?: internal.Readable
 
 }
