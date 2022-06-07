@@ -7,6 +7,7 @@ import {ResponseI} from "../Model/ResponseModel/Response";
 export default async (req: Request, examRepo: ExamRepository) => {
     try{
         const createExam = new ExamModel({
+            _id:req.body.UUID,
             examTitle: req.body.examTitle,
             examCategory: req.body.examCategory,
             examStartTime: req.body.examStartTime,

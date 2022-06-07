@@ -2,9 +2,10 @@ import mongoDb, {Schema} from "mongoose";
 import {ExamModelI} from "../../Core/Model/RequestModel/ExamModel";
 import {QuestionSchema} from "./questionModel";
 import {QuestionModelI} from "../../Core/Model/RequestModel/QuestionModel";
-
+import { v4 as uuidv4 } from 'uuid';
 
 const ExamSchema = new Schema<ExamModelI>({
+    _id: { type: String, default: uuidv4()},
     examTitle: {type: String, required: true},
     examCategory: {type: String, required: true},
     // @ts-ignore

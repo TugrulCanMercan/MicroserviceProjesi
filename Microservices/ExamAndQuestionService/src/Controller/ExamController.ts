@@ -42,4 +42,7 @@ export default class ExamController {
         })
 
     }
+
+    async createAddExam(req: Request) {
+    }
 }

@@ -11,4 +11,8 @@ ExamApi.post("/createExam",async (req,res)=>{
         res.send(result)
     })
 })
+
+ExamApi.post("/createAddExam",async (req,res)=>{
+    const examController = new ExamController(examRepository)
+})
 export default ExamApi
