@@ -11,6 +11,11 @@ Questions.get("/getAllQuestions", (req, res) => {
         res.send(result)
     })
 })
+Questions.post("/getAllQuestionsExam", (req, res) => {
+    questionControllers.getAllQuestionsExam(req).then((result)=>{
+        res.send({examId:req.body.examId,questions:result})
+    })
+})
 
 Questions.post('/addQuestions', async (req, res) => {
 

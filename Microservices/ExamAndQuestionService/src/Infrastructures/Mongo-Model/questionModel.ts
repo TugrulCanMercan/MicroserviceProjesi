@@ -1,10 +1,12 @@
 import mongoDb, {Schema} from "mongoose";
 import {QuestionI, QuestionModelI, QuestionOptionsI} from "../../Core/Model/RequestModel/QuestionModel";
+import {v4 as uuidv4} from "uuid";
 
 
 
 const QuestionSchema = new Schema<QuestionModelI>({
-    questionsCategory: {type:String,required:true},
+    _id: { type: String, default: () => uuidv4() },
+    questionsCategory: {type:String},
     questionsDifficultyRate: {type:Number,min:1,max:10,message:"Lütfen 1-10 arasında değer girin"},
     questionLikeRate: Number,
     question: {

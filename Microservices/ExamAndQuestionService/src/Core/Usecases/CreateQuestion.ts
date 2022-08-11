@@ -9,6 +9,8 @@ export default async (req: Request, questionRepo: QuestionRepo) => {
 
     try {
         const addQuestion = new QuestionModel({
+
+            userId:req.body.UUID.sub,
             questionsCategory: req.body.questionsCategory,
             questionsDifficultyRate: req.body.questionsDifficultyRate,
             questionLikeRate: req.body.questionLikeRate,

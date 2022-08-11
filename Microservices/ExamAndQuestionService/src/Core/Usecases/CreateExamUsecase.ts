@@ -1,13 +1,13 @@
 
 import {Request} from "express";
-import ExamModel from "../../Infrastructures/Mongo-Model/examModel";
+import ExamResultModelModel from "../../Infrastructures/Mongo-Model/examModel";
 import ExamRepository from "../../Infrastructures/Repositories/ExamRepository";
 import {ResponseI} from "../Model/ResponseModel/Response";
 
 export default async (req: Request, examRepo: ExamRepository) => {
     try{
-        const createExam = new ExamModel({
-            _id:req.body.UUID,
+        const createExam = new ExamResultModelModel({
+            userId:req.body.UUID.sub,
             examTitle: req.body.examTitle,
             examCategory: req.body.examCategory,
             examStartTime: req.body.examStartTime,

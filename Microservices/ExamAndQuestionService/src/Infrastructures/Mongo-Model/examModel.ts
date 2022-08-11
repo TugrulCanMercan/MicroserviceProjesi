@@ -5,9 +5,10 @@ import {QuestionModelI} from "../../Core/Model/RequestModel/QuestionModel";
 import { v4 as uuidv4 } from 'uuid';
 
 const ExamSchema = new Schema<ExamModelI>({
-    _id: { type: String, default: uuidv4()},
+    _id: { type: String, default: () => uuidv4()},
+    userId:{type:String,default:""},
     examTitle: {type: String, required: true},
-    examCategory: {type: String, required: true},
+    examCategory: {type: String},
     // @ts-ignore
     examStartTime: {
         type: Date, default: Date.now, validate: {
@@ -35,7 +36,7 @@ const ExamSchema = new Schema<ExamModelI>({
             message: "geçersiz son zaman"
         }
     },
-    examQuestions: {type: [{type:Schema.Types.ObjectId,ref:'Questions'}], validate: examCountValidation},
+    examQuestions: {type: [{type:String,ref:'Questions'}], validate: examCountValidation},
     examTotalPoint: {type: Number, min: 0, max: 100, message: "Geçersiz puan girildi"}
 })
 

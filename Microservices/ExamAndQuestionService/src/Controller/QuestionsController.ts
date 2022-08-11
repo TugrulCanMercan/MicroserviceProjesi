@@ -39,6 +39,19 @@ export default class QuestionsController {
         const allQuestion: QuestionModelI[] = await this.questionRepo.find({_id: {$in: allQuestionId}})
         return allQuestion
     }
+    async getAllQuestionsExam(req: Request) {
+        const allQuestionId = req.body.userQuestionLibrary
+        const allQuestion: QuestionModelI[] = await this.questionRepo.find({_id: {$in: allQuestionId}})
+        const questions = allQuestion.map((item)=>{
+            const result = {
+                questionContent:item.question.questionContent,
+                questionsList:item.question.questionOptions,
+                questionsId:item._id
+            }
+            return result
+        })
+        return questions
+    }
 
     async questionAddLibrary(req: Request) {
         const question = await getQuestionUsecase(req.body.QuestionId, this.questionRepo)

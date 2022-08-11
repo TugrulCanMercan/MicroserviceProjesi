@@ -15,24 +15,27 @@ app.use(routerModule())
 app.listen(PORT,()=>{
     
     dbConnection()
-    // axios({
-    //     method: "POST",
-    //     url: "http://apigateway:5001/register",
-    //     headers:{'Content-Type':'application/json'},
-    //     data:{
-    //         apiName:"ExamAndQuestion",
-    //         protocol:"http",
-    //         host:"examandquestion",
-    //         port:PORT,
-    //         route:[
-    //             "/createExam",
-    //             "/getAllQuestions",
-    //             "/addQuestions",
-    //             "/questionAddLibrary"
-    //         ]
-    //     }
-    // }).then((result)=>{
-    //     console.log(result.data)
-    // })
+    axios({
+        method: "POST",
+        url: "http://apigateway:5001/register",
+        headers:{'Content-Type':'application/json'},
+        data:{
+            apiName:"ExamAndQuestion",
+            protocol:"http",
+            host:"examandquestion",
+            port:PORT,
+            route:[
+                "/createExam",
+                "/getAllQuestions",
+                "/addQuestions",
+                "/questionAddLibrary",
+                "/getExamId",
+                "/getAllQuestionsExam",
+                "/postExamResultTurnIn"
+            ]
+        }
+    }).then((result)=>{
+        console.log(result.data)
+    })
     console.log(`Dinlenen port : ${PORT} `)
 })

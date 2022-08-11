@@ -7,7 +7,7 @@ import amqpClient from "../Infrastructures/Db-access/rabbitmqConnect";
 import {ResponseI} from "../Core/Model/ResponseModel/Response";
 import {ExamModelI} from "../Core/Model/RequestModel/ExamModel";
 import {connection} from "mongoose";
-
+import nodemailer from  "nodemailer"
 
 export default class ExamController {
     constructor(
@@ -17,7 +17,6 @@ export default class ExamController {
 
     async createExam(req: Request) {
         const createInfo = await createExamUsecase(req, this.examRepo)
-
         return new Promise<string>((resolve, reject)=>{
             if (typeof createInfo === "string") {
                 resolve(createInfo)
@@ -43,6 +42,9 @@ export default class ExamController {
 
     }
 
-    async createAddExam(req: Request) {
+
+    getExamById(req: Request) {
+        const exam = this.examRepo.find({_id: {$in: req.body.examId}})
+        return exam
     }
 }

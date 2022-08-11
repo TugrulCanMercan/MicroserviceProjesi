@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import mongoDb, {Schema} from "mongoose";
 import {IUserModel} from "../../Core/Model/IUserModel";
-
+import {v4 as uuidv4} from "uuid";
 
 const UserSchema = new Schema<IUserModel>({
+    _id: { type: String, default: uuidv4()},
     name:String,
     surname:String,
     password:String,
